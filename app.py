@@ -32,3 +32,7 @@ async def describe_image(file: UploadFile = File(...)):
 @app.get("/")
 def home():
     return {"message": "Image analysis server is running"}
+
+@app.get("/healthz")
+def health_check():
+    return {"status": "ok"}
