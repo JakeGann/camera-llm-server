@@ -1,3 +1,5 @@
 fastapi
 uvicorn
 google-cloud-vision
+requests
+python-multipart
