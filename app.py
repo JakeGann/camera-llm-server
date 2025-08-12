@@ -1,7 +1,10 @@
+import logging
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import os
 import requests
+
+logging.basicConfig(level=logging.INFO)
 
 app = FastAPI()
 
@@ -10,6 +13,14 @@ if not HF_API_KEY:
     raise RuntimeError("HF_API_KEY not set in environment variables.")
 
 HF_MODEL = "nlpconnect/vit-gpt2-image-captioning"
+
+@app.on_event("startup")
+async def startup_event():
+    logging.info("App startup")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    logging.info("App shutdown")
 
 @app.post("/describe")
 async def describe_image(file: UploadFile = File(...)):
